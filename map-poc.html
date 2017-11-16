@@ -1,0 +1,49 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="map-poc">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            .map {
+                width: 100%;
+                height: 100%;
+                background-repeat: no-repeat !important;
+            }
+        </style>
+        <div id="map"></div>
+    </template>
+
+    <script src="../polymaps/polymaps.js"></script>
+
+    <script>
+        /**
+         * `map-poc`
+         *
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class MapPoc extends Polymer.Element {
+            static get is() {
+                return 'map-poc';
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                const po = org.polymaps;
+                let map = po.map();
+                map.container(this.$.map.appendChild(po.svg("svg")))
+                    .add(po.image().url('../assets/MapaUAA.svg'))
+                    .add(po.interact())
+                    .add(po.hash())
+                    .add(po.compass());
+            }
+        }
+
+        window.customElements.define(MapPoc.is, MapPoc);
+    </script>
+</dom-module>
